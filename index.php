@@ -9,21 +9,19 @@
 <body>
     <?php require_once './src/database/dbconn.php'; ?>
     <div class="container">
-        <h1>To-do List</h1>
+        <h1>To-Do List</h1>
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-9">
+            <div class="col">
                 <form action="add.php" method="POST" autocomplete="off">
                     <?php if(isset($_GET['mess']) && $_GET['mess'] == 'error') { ?>
-                        <p><input type="text" name="title" class="form-control" placeholder="É necessário informar o nome da tarefa!"></p>
-                        <p><button type="submit" class="btn btn-primary">Add <span>+</span></button></p>
+                        <input type="text" name="title" class="form-control" placeholder="É necessário informar o nome da tarefa!">
+                        <button type="submit" class="btn btn-primary">Add <span>+</span></button>
                     <?php } else { ?>
-                        <p><input type="text" name="title" class="form-control" placeholder="Clique para adicionar uma tarefa!"></p>
-                        <p><button type="submit" class="btn btn-primary">Add <span>+</span></button></p>
+                        <input type="text" name="title" class="form-control" placeholder="Clique para adicionar uma tarefa!">
+                        <button type="submit" class="btn btn-primary">Add <span>+</span></button>
                     <?php } ?>
                 </form>
             </div>
-            <div class="col-2"></div>
         </div>
 
         <?php 
@@ -32,9 +30,7 @@
         ?>
 
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-9">
-
+            <div class="col">
             <?php if ($todos -> rowCount() <= 0) { ?>
                 <div class="todo-item">
                     <div class="empty">
@@ -44,7 +40,7 @@
                 <?php } ?>
 
                 <?php while($todo = $todos -> fetch(PDO::FETCH_ASSOC)) { ?>
-                <div class="todo-item">
+                <div class="todo-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <span id="<?php echo $todo['id']; ?>" class="remove-todo">x</span>
                     <?php if($todo['checked']) { ?>
                         <input type="checkbox" data-todo-id="<?php echo $todo['id']; ?>" class="checkbox" checked>
@@ -54,13 +50,18 @@
                         <h2><?php echo $todo['title'] ?></h2>
                         <?php } ?>
                     <br>
-                    <small>created: <?php echo $todo['date_time'] ?></small>
+                    <small>criado em: <?php echo $todo['date_time'] ?></small>
                 </div>
                 <?php } ?>
             </div>
-            <div class="col-2"></div>
         </div>
     </div>
+
+    <footer>
+        <p>
+            Feito por <a href="https://www.linkedin.com/in/brunoramosdev/" target="_blank" rel="noreferrer">Bruno Ramos</a>
+        </p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
@@ -76,8 +77,25 @@
                     if(data) {
                         $(this).parent().hide(600);
                     }
-                }
-                );
+                });
+            });
+            $('.checkbox').click(function(e) {
+                const id = $(this).attr('data-todo-id');
+
+                $.post('check.php', 
+                {
+                    id: id
+                }, 
+                (data) => {
+                    if(data != 'error') {
+                        const h2 = $(this).next();
+                        if(data === '1') {
+                            h2.removeClass('checked');
+                        } else {
+                            h2.addClass('checked');
+                        }
+                    }
+                });
             });
         });
     </script>
