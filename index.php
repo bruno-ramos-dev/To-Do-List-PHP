@@ -54,7 +54,7 @@
                         <h2><?php echo $todo['title'] ?></h2>
                         <?php } ?>
                     <br>
-                    <small>created: <?php echo $todo['date_time'] ?></small>
+                    <small>criado em: <?php echo $todo['date_time'] ?></small>
                 </div>
                 <?php } ?>
             </div>
@@ -76,8 +76,25 @@
                     if(data) {
                         $(this).parent().hide(600);
                     }
-                }
-                );
+                });
+            });
+            $('.checkbox').click(function(e) {
+                const id = $(this).attr('data-todo-id');
+
+                $.post('check.php', 
+                {
+                    id: id
+                }, 
+                (data) => {
+                    if(data != 'error') {
+                        const h2 = $(this).next();
+                        if(data === '1') {
+                            h2.removeClass('checked');
+                        } else {
+                            h2.addClass('checked');
+                        }
+                    }
+                });
             });
         });
     </script>
