@@ -82,6 +82,13 @@
     padding: 20px 10px;
     box-shadow: 0 4px 8px 0 var(--tertiary-color), 0 6px 20px 0 var(--tertiary-color);
     border-radius: 5px;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+}
+
+.todo-item:hover {
+    background: var(--quaternary-color);
+    transition: background .15s ease-in-out;
 }
 
 .todo-item h2 {
@@ -108,11 +115,13 @@
     height: 35px;
     padding: 0 5px 8px 10px;
     cursor: pointer;
-    transition: color .15s;
+    transition: color .15s, font-size .15s;
 }
 
 .remove-todo:hover {
-    color: var(--secondary-color);
+    color: #e70000;
+    font-size: 1.5rem;
+    transition: color .15s, font-size .15s;
 }
 
 .checked {
