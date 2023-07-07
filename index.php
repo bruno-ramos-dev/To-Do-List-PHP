@@ -13,9 +13,14 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-9">
-                <form action="" method="POST" autocomplete="off">
-                    <p><input type="text" name="title" class="form-control" placeholder="Clique para adicionar uma tarefa!"></p>
-                    <p><button type="submit" class="btn btn-primary">Add <span>+</span></button></p>
+                <form action="add.php" method="POST" autocomplete="off">
+                    <?php if(isset($_GET['mess']) && $_GET['mess'] == 'error') { ?>
+                        <p><input type="text" name="title" class="form-control" placeholder="É necessário informar o nome da tarefa!"></p>
+                        <p><button type="submit" class="btn btn-primary">Add <span>+</span></button></p>
+                    <?php } else { ?>
+                        <p><input type="text" name="title" class="form-control" placeholder="Clique para adicionar uma tarefa!"></p>
+                        <p><button type="submit" class="btn btn-primary">Add <span>+</span></button></p>
+                    <?php } ?>
                 </form>
             </div>
             <div class="col-2"></div>
@@ -56,5 +61,25 @@
             <div class="col-2"></div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.remove-todo').click(function() {
+                const id = $(this).attr('id');
+
+                $.post('remove.php', 
+                {
+                    id: id
+                }, 
+                (data) => {
+                    if(data) {
+                        $(this).parent().hide(600);
+                    }
+                }
+                );
+            });
+        });
+    </script>
 </body>
 </html>
