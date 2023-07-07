@@ -32,3 +32,16 @@ Projeto permite a criação de tarefas, edição de status e exclusão de tarefa
   
 - JQuery
     - Manipulação do DOM
+ 
+    </br>
+    
+    <p align="center">
+   📝📝 Confira abaixo alguns prints do projeto 📝📝
+    </p>
+    
+    <p align="center">
+    <a href="https://ibb.co/z8MqXqv"><img src="https://i.ibb.co/FsrR5RT/todo01.jpg" alt="to-do-list" border="0"></a>
+    </p>
+    <p align="center">
+    <a href="https://ibb.co/NTLJydq"><img src="https://i.ibb.co/y48ZQcC/todo02.jpg" alt="to-do-list" border="0"></a>
+    </p>
